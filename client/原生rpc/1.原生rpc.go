@@ -21,7 +21,7 @@ func main() {
 		return
 	}
 	var res Res
-	err = client.Call("Server.Add1", req, &res) //调用Server的Add方法
+	err = client.Call("Server.Add", req, &res) //调用Server的Add方法
 	if err != nil {
 		fmt.Println(err.Error())
 	}
