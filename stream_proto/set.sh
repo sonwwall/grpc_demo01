@@ -1,0 +1,1 @@
+protoc -I ./stream_proto --go_out=./stream_proto --go-grpc_out=./stream_proto ./stream_proto/stream.proto

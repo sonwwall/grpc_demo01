@@ -1,0 +1,30 @@
+syntax="proto3";
+
+option go_package="/stream";
+
+//普通
+service Simple{
+  rpc Fun(Request)returns(Response){}
+}
+
+message Request{
+  string name=1;
+}
+
+message Response{
+  string name=1;
+}
+
+
+
+//服务端流式
+
+message FileResponse{
+  string file_name=1;
+  bytes content=2;
+}
+
+service ServiceStream{
+  rpc Fun(Request)returns(stream Response){}
+  rpc DownLoadFile(Request)returns(stream FileResponse){}
+}
