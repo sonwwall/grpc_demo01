@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"grpc_demo01/grpc_proto/multi_grpc"
+	"grpc_demo01/service_proto/proto"
 	"log"
 )
 
@@ -17,8 +17,8 @@ func main() {
 	}
 	defer conn.Close()
 
-	orderClient := proto.NewOrderServiceClient(conn)
-	videoClient := proto.NewVideoServiceClient(conn)
+	orderClient := proto.NewOrderClient(conn)
+	videoClient := proto.NewVideoClient(conn)
 	res, err := orderClient.Buy(context.Background(), &proto.Request{Name: "龙哥"})
 	fmt.Println(res)
 	res, err = videoClient.Look(context.Background(), &proto.Request{Name: "龙哥"})

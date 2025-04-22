@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v6.30.2
-// source: multi.proto
+// source: common.proto
 
 package proto
 
@@ -30,7 +30,7 @@ type Request struct {
 
 func (x *Request) Reset() {
 	*x = Request{}
-	mi := &file_multi_proto_msgTypes[0]
+	mi := &file_common_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +42,7 @@ func (x *Request) String() string {
 func (*Request) ProtoMessage() {}
 
 func (x *Request) ProtoReflect() protoreflect.Message {
-	mi := &file_multi_proto_msgTypes[0]
+	mi := &file_common_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +55,7 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Request.ProtoReflect.Descriptor instead.
 func (*Request) Descriptor() ([]byte, []int) {
-	return file_multi_proto_rawDescGZIP(), []int{0}
+	return file_common_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Request) GetName() string {
@@ -74,7 +74,7 @@ type Response struct {
 
 func (x *Response) Reset() {
 	*x = Response{}
-	mi := &file_multi_proto_msgTypes[1]
+	mi := &file_common_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -86,7 +86,7 @@ func (x *Response) String() string {
 func (*Response) ProtoMessage() {}
 
 func (x *Response) ProtoReflect() protoreflect.Message {
-	mi := &file_multi_proto_msgTypes[1]
+	mi := &file_common_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -99,7 +99,7 @@ func (x *Response) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Response.ProtoReflect.Descriptor instead.
 func (*Response) Descriptor() ([]byte, []int) {
-	return file_multi_proto_rawDescGZIP(), []int{1}
+	return file_common_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Response) GetName() string {
@@ -109,69 +109,61 @@ func (x *Response) GetName() string {
 	return ""
 }
 
-var File_multi_proto protoreflect.FileDescriptor
+var File_common_proto protoreflect.FileDescriptor
 
-const file_multi_proto_rawDesc = "" +
+const file_common_proto_rawDesc = "" +
 	"\n" +
-	"\vmulti.proto\"\x1d\n" +
+	"\fcommon.proto\x12\x05proto\"\x1d\n" +
 	"\aRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"\x1e\n" +
 	"\bResponse\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name2-\n" +
-	"\fVideoService\x12\x1d\n" +
-	"\x04Look\x12\b.Request\x1a\t.Response\"\x002,\n" +
-	"\fOrderService\x12\x1c\n" +
-	"\x03Buy\x12\b.Request\x1a\t.Response\"\x00B\rZ\v/multi_grpcb\x06proto3"
+	"\x04name\x18\x01 \x01(\tR\x04nameB\bZ\x06/protob\x06proto3"
 
 var (
-	file_multi_proto_rawDescOnce sync.Once
-	file_multi_proto_rawDescData []byte
+	file_common_proto_rawDescOnce sync.Once
+	file_common_proto_rawDescData []byte
 )
 
-func file_multi_proto_rawDescGZIP() []byte {
-	file_multi_proto_rawDescOnce.Do(func() {
-		file_multi_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_multi_proto_rawDesc), len(file_multi_proto_rawDesc)))
+func file_common_proto_rawDescGZIP() []byte {
+	file_common_proto_rawDescOnce.Do(func() {
+		file_common_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_common_proto_rawDesc), len(file_common_proto_rawDesc)))
 	})
-	return file_multi_proto_rawDescData
+	return file_common_proto_rawDescData
 }
 
-var file_multi_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_multi_proto_goTypes = []any{
-	(*Request)(nil),  // 0: Request
-	(*Response)(nil), // 1: Response
+var file_common_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_common_proto_goTypes = []any{
+	(*Request)(nil),  // 0: proto.Request
+	(*Response)(nil), // 1: proto.Response
 }
-var file_multi_proto_depIdxs = []int32{
-	0, // 0: VideoService.Look:input_type -> Request
-	0, // 1: OrderService.Buy:input_type -> Request
-	1, // 2: VideoService.Look:output_type -> Response
-	1, // 3: OrderService.Buy:output_type -> Response
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+var file_common_proto_depIdxs = []int32{
+	0, // [0:0] is the sub-list for method output_type
+	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_multi_proto_init() }
-func file_multi_proto_init() {
-	if File_multi_proto != nil {
+func init() { file_common_proto_init() }
+func file_common_proto_init() {
+	if File_common_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_multi_proto_rawDesc), len(file_multi_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_common_proto_rawDesc), len(file_common_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
-			NumServices:   2,
+			NumServices:   0,
 		},
-		GoTypes:           file_multi_proto_goTypes,
-		DependencyIndexes: file_multi_proto_depIdxs,
-		MessageInfos:      file_multi_proto_msgTypes,
+		GoTypes:           file_common_proto_goTypes,
+		DependencyIndexes: file_common_proto_depIdxs,
+		MessageInfos:      file_common_proto_msgTypes,
 	}.Build()
-	File_multi_proto = out.File
-	file_multi_proto_goTypes = nil
-	file_multi_proto_depIdxs = nil
+	File_common_proto = out.File
+	file_common_proto_goTypes = nil
+	file_common_proto_depIdxs = nil
 }

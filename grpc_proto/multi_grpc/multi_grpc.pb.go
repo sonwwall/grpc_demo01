@@ -4,7 +4,7 @@
 // - protoc             v6.30.2
 // source: multi.proto
 
-package multi_grpc
+package proto
 
 import (
 	context "context"

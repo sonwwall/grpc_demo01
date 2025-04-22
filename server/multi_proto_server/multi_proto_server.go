@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
-	"grpc_demo01/grpc_proto/multi_grpc"
+	"grpc_demo01/service_proto/proto"
 	"net"
 )
 
 type VideoServer struct {
-	proto.UnimplementedVideoServiceServer
+	proto.UnimplementedVideoServer
 }
 
 type OrderServer struct {
-	proto.UnimplementedOrderServiceServer
+	proto.UnimplementedOrderServer
 }
 
 func (VideoServer) Look(ctx context.Context, request *proto.Request) (res *proto.Response, err error) {
@@ -41,8 +41,8 @@ func main() {
 
 	s := grpc.NewServer()
 
-	proto.RegisterVideoServiceServer(s, &VideoServer{})
-	proto.RegisterOrderServiceServer(s, &OrderServer{})
+	proto.RegisterVideoServer(s, &VideoServer{})
+	proto.RegisterOrderServer(s, &OrderServer{})
 	fmt.Println("服务端正在运行在8080端口")
 	err = s.Serve(listen)
 	if err != nil {
