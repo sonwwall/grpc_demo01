@@ -32,14 +32,25 @@ message Item{
     fixed32 code=2;
 }
 
+//list
 message ArraryRequest{
     repeated int64 i6_list=1;
     repeated string s_list=2;
     repeated Item item_list=3;
 }
 
+//map
 message MapRequset{
     map<int32,string> i_s =1;
     map<string,string>s_s=2;
     map<string,Item>s_item=3;
+}
+
+//嵌套
+message Q1 {
+    message Q2{
+        string name2 = 2;
+    }
+    string name1 = 1;
+    Q2 q2 = 2;
 }
