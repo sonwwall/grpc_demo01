@@ -235,7 +235,10 @@ const file_stream_proto_rawDesc = "" +
 	"\fDownLoadFile\x12\b.Request\x1a\r.FileResponse\"\x000\x0129\n" +
 	"\fClientStream\x12)\n" +
 	"\n" +
-	"UploadFile\x12\f.FileRequest\x1a\t.Response\"\x00(\x01B\tZ\a/streamb\x06proto3"
+	"UploadFile\x12\f.FileRequest\x1a\t.Response\"\x00(\x012/\n" +
+	"\n" +
+	"BothStream\x12!\n" +
+	"\x04Chat\x12\b.Request\x1a\t.Response\"\x00(\x010\x01B\tZ\a/streamb\x06proto3"
 
 var (
 	file_stream_proto_rawDescOnce sync.Once
@@ -261,12 +264,14 @@ var file_stream_proto_depIdxs = []int32{
 	0, // 1: ServiceStream.Fun:input_type -> Request
 	0, // 2: ServiceStream.DownLoadFile:input_type -> Request
 	3, // 3: ClientStream.UploadFile:input_type -> FileRequest
-	1, // 4: Simple.Fun:output_type -> Response
-	1, // 5: ServiceStream.Fun:output_type -> Response
-	2, // 6: ServiceStream.DownLoadFile:output_type -> FileResponse
-	1, // 7: ClientStream.UploadFile:output_type -> Response
-	4, // [4:8] is the sub-list for method output_type
-	0, // [0:4] is the sub-list for method input_type
+	0, // 4: BothStream.Chat:input_type -> Request
+	1, // 5: Simple.Fun:output_type -> Response
+	1, // 6: ServiceStream.Fun:output_type -> Response
+	2, // 7: ServiceStream.DownLoadFile:output_type -> FileResponse
+	1, // 8: ClientStream.UploadFile:output_type -> Response
+	1, // 9: BothStream.Chat:output_type -> Response
+	5, // [5:10] is the sub-list for method output_type
+	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -285,7 +290,7 @@ func file_stream_proto_init() {
 			NumEnums:      0,
 			NumMessages:   4,
 			NumExtensions: 0,
-			NumServices:   3,
+			NumServices:   4,
 		},
 		GoTypes:           file_stream_proto_goTypes,
 		DependencyIndexes: file_stream_proto_depIdxs,

@@ -364,3 +364,99 @@ var ClientStream_ServiceDesc = grpc.ServiceDesc{
 	},
 	Metadata: "stream.proto",
 }
+
+const (
+	BothStream_Chat_FullMethodName = "/BothStream/Chat"
+)
+
+// BothStreamClient is the client API for BothStream service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type BothStreamClient interface {
+	Chat(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[Request, Response], error)
+}
+
+type bothStreamClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewBothStreamClient(cc grpc.ClientConnInterface) BothStreamClient {
+	return &bothStreamClient{cc}
+}
+
+func (c *bothStreamClient) Chat(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[Request, Response], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &BothStream_ServiceDesc.Streams[0], BothStream_Chat_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[Request, Response]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type BothStream_ChatClient = grpc.BidiStreamingClient[Request, Response]
+
+// BothStreamServer is the server API for BothStream service.
+// All implementations must embed UnimplementedBothStreamServer
+// for forward compatibility.
+type BothStreamServer interface {
+	Chat(grpc.BidiStreamingServer[Request, Response]) error
+	mustEmbedUnimplementedBothStreamServer()
+}
+
+// UnimplementedBothStreamServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedBothStreamServer struct{}
+
+func (UnimplementedBothStreamServer) Chat(grpc.BidiStreamingServer[Request, Response]) error {
+	return status.Errorf(codes.Unimplemented, "method Chat not implemented")
+}
+func (UnimplementedBothStreamServer) mustEmbedUnimplementedBothStreamServer() {}
+func (UnimplementedBothStreamServer) testEmbeddedByValue()                    {}
+
+// UnsafeBothStreamServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to BothStreamServer will
+// result in compilation errors.
+type UnsafeBothStreamServer interface {
+	mustEmbedUnimplementedBothStreamServer()
+}
+
+func RegisterBothStreamServer(s grpc.ServiceRegistrar, srv BothStreamServer) {
+	// If the following call pancis, it indicates UnimplementedBothStreamServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&BothStream_ServiceDesc, srv)
+}
+
+func _BothStream_Chat_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(BothStreamServer).Chat(&grpc.GenericServerStream[Request, Response]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type BothStream_ChatServer = grpc.BidiStreamingServer[Request, Response]
+
+// BothStream_ServiceDesc is the grpc.ServiceDesc for BothStream service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var BothStream_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "BothStream",
+	HandlerType: (*BothStreamServer)(nil),
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Chat",
+			Handler:       _BothStream_Chat_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
+	Metadata: "stream.proto",
+}

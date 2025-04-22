@@ -36,3 +36,7 @@ service ServiceStream{
 service ClientStream{
   rpc UploadFile(stream FileRequest)returns(Response){}
 }
+
+service BothStream{
+  rpc Chat(stream Request)returns(stream Response){}
+}
