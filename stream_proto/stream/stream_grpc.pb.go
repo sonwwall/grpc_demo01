@@ -269,3 +269,98 @@ var ServiceStream_ServiceDesc = grpc.ServiceDesc{
 	},
 	Metadata: "stream.proto",
 }
+
+const (
+	ClientStream_UploadFile_FullMethodName = "/ClientStream/UploadFile"
+)
+
+// ClientStreamClient is the client API for ClientStream service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ClientStreamClient interface {
+	UploadFile(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[FileRequest, Response], error)
+}
+
+type clientStreamClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewClientStreamClient(cc grpc.ClientConnInterface) ClientStreamClient {
+	return &clientStreamClient{cc}
+}
+
+func (c *clientStreamClient) UploadFile(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[FileRequest, Response], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &ClientStream_ServiceDesc.Streams[0], ClientStream_UploadFile_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[FileRequest, Response]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ClientStream_UploadFileClient = grpc.ClientStreamingClient[FileRequest, Response]
+
+// ClientStreamServer is the server API for ClientStream service.
+// All implementations must embed UnimplementedClientStreamServer
+// for forward compatibility.
+type ClientStreamServer interface {
+	UploadFile(grpc.ClientStreamingServer[FileRequest, Response]) error
+	mustEmbedUnimplementedClientStreamServer()
+}
+
+// UnimplementedClientStreamServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedClientStreamServer struct{}
+
+func (UnimplementedClientStreamServer) UploadFile(grpc.ClientStreamingServer[FileRequest, Response]) error {
+	return status.Errorf(codes.Unimplemented, "method UploadFile not implemented")
+}
+func (UnimplementedClientStreamServer) mustEmbedUnimplementedClientStreamServer() {}
+func (UnimplementedClientStreamServer) testEmbeddedByValue()                      {}
+
+// UnsafeClientStreamServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ClientStreamServer will
+// result in compilation errors.
+type UnsafeClientStreamServer interface {
+	mustEmbedUnimplementedClientStreamServer()
+}
+
+func RegisterClientStreamServer(s grpc.ServiceRegistrar, srv ClientStreamServer) {
+	// If the following call pancis, it indicates UnimplementedClientStreamServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&ClientStream_ServiceDesc, srv)
+}
+
+func _ClientStream_UploadFile_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ClientStreamServer).UploadFile(&grpc.GenericServerStream[FileRequest, Response]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ClientStream_UploadFileServer = grpc.ClientStreamingServer[FileRequest, Response]
+
+// ClientStream_ServiceDesc is the grpc.ServiceDesc for ClientStream service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ClientStream_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "ClientStream",
+	HandlerType: (*ClientStreamServer)(nil),
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "UploadFile",
+			Handler:       _ClientStream_UploadFile_Handler,
+			ClientStreams: true,
+		},
+	},
+	Metadata: "stream.proto",
+}
